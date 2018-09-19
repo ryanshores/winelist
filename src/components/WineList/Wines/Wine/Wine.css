@@ -7,14 +7,13 @@
   background-color: #efefef50;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s;
 }
 
 .Wine:hover {
-  border-bottom: 3px solid #8a1e1ebe;
-  border-right: 3px solid #8a1e1ebe;
+  font-size: 1.1em;
 }
 
 .toggle {
-  border-bottom: 3px solid #8a1e1e;
-  border-right: 3px solid #8a1e1e;
+  background: #8a1e1e10;
 }
