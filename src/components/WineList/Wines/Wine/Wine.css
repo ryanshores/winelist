@@ -8,3 +8,13 @@
   align-items: center;
   justify-content: center;
 }
+
+.Wine:hover {
+  border-bottom: 3px solid #8a1e1ebe;
+  border-right: 3px solid #8a1e1ebe;
+}
+
+.toggle {
+  border-bottom: 3px solid #8a1e1e;
+  border-right: 3px solid #8a1e1e;
+}
