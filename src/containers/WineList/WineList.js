@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
+import fireDB from '../../firebase/firedb'
 
 import WineListType from '../../components/WineTypeList/WineListType'
 
 class WineList extends Component {
   state = { 
-    wines: [
-      { name: 'The Good Stuff', year: '2015', type: 'Merlot' },
-      { name: 'Fat Cab', year: '2015', type: 'Cabernet' },
-      { name: 'Pinot Pinot', year: '2015', type: 'Pinot Niore' },
-      { name: 'Dark Knight', year: '2014', type: 'Pinot Niore' }
-    ],
+    wines: [],
     adding: false
-   }
+  }
+
+  componentDidMount() {
+    fireDB.collection('winelist').get()
+    .then(response => {
+      const wines = [];
+      response.forEach(doc => {
+        wines.push({
+          id: doc.id,
+          ...doc.data()
+        })
+      })
+      this.setState({wines})
+    })
+    .catch(err => {
+      console.error(err);
+    })
+  }
 
   addWineHandler = (wine) => {
     const wines = this.state.wines

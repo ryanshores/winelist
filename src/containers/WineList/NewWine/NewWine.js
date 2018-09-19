@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import fireDB from '../../../firebase/firedb'
 import './NewWine.css'
 
 class WineForm extends Component {
@@ -15,8 +16,12 @@ class WineForm extends Component {
       year: this.state.year,
       type: this.state.type
     };
-    this.props.onAdd(newWine);
-    this.props.cancel();
+    fireDB.collection('winelist').add(newWine)
+    .then(doc => {
+      this.props.history.replace('/')
+    })
+    .catch(err => console.error(err));
+  
   }
 
   handleChange = (e) => {
@@ -27,18 +32,27 @@ class WineForm extends Component {
     return ( 
       <form onSubmit={this.handleSubmit} className='NewWine'>
         <h4>Add a wine</h4>
-        <label>
-          Name:
-          <input name="name" type="text" value={this.state.name} onChange={this.handleChange} />
-        </label>
-        <label>
-          Year:
-          <input name="year" type="number" value={this.state.year} onChange={this.handleChange} />
-        </label>
-        <label>
-          Type:
-          <input name="type" type="text" value={this.state.type} onChange={this.handleChange} />
-        </label>
+        <input 
+          name="name" 
+          type="text" 
+          value={this.state.name} 
+          onChange={this.handleChange} 
+          placeholder='Name'
+        />
+        <input 
+          name="type" 
+          type="text" 
+          value={this.state.type} 
+          onChange={this.handleChange} 
+          placeholder='Type'
+        />
+        <input 
+          name="year" 
+          type="text" 
+          value={this.state.year} 
+          onChange={this.handleChange} 
+          placeholder='Year'
+        />
         <input type="submit" value="Submit" />
       </form>
      );
